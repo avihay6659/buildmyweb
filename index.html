@@ -28,14 +28,50 @@
             font-family: 'Heebo', sans-serif;
             line-height: 1.6;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #16213e 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            position: relative;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Fix for any elements that might overflow */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        /* Ensure all sections stay within bounds */
+        section {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Fix potential animation overflow */
+        .logo-icon::before,
+        .logo-icon::after,
+        .logo-container::before {
+            max-width: 100%;
+            overflow: hidden;
         }
 
         /* Navigation Bar */
