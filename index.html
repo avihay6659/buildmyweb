@@ -841,6 +841,8 @@
             backdrop-filter: blur(10px);
             z-index: 2000;
             animation: fadeIn 0.3s ease;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .modal.show {
@@ -853,57 +855,66 @@
             background: rgba(26, 26, 46, 0.95);
             backdrop-filter: blur(25px);
             border-radius: 25px;
-            padding: 50px;
+            padding: 40px;
             max-width: 600px;
-            width: 90%;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
             border: 2px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
             position: relative;
             animation: modalSlideIn 0.4s ease;
         }
 
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            position: sticky;
+            top: 0;
+            background: rgba(26, 26, 46, 0.95);
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal-header h3 {
             color: #ffffff;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: linear-gradient(135deg, #ff6b35, #ffcd3c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin: 0;
+            flex: 1;
         }
 
         .close-modal {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid rgba(255, 107, 53, 0.5);
             color: #ffffff;
             font-size: 1.5rem;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
         }
 
         .close-modal:hover {
-            background: rgba(255, 107, 53, 0.3);
+            background: rgba(255, 107, 53, 0.4);
+            border-color: #ff6b35;
             transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+
+        .close-modal:active {
+            transform: scale(0.95);
         }
 
         .modal-body {
@@ -1421,8 +1432,2298 @@
             }
 
             .modal-content {
-                padding: 25px 15px;
-                margin: 20px;
+                padding: 20px 15px;
+                margin: 10px;
+                max-height: 90vh;
+                border-radius: 20px;
+            }
+
+            .modal-header {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+
+            .modal-header h3 {
+                font-size: 1.4rem;
+            }
+
+            .close-modal {
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
+
+            .modal-body {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .modal-body h4 {
+                font-size: 1.1rem;
+                margin: 15px 0 8px;
+            }
+
+            .modal-body li {
+                font-size: 0.85rem;
+                margin-bottom: 8px;
+            }
+
+            .phone-number {
+                font-size: 2rem;
+            }
+
+            .floating-social {
+                right: 15px;
+                gap: 12px;
+            }
+
+            .floating-social-link {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+
+            .floating-social-link:hover {
+                transform: translateX(-8px) scale(1.1);
+            }
+
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#contact" class="nav-btn" onclick="scrollToContact()">
+                <i class="fas fa-edit"></i>
+                השאר פרטים
+            </a>
+            <button class="nav-btn" onclick="openPhoneModal()">
+                <i class="fas fa-phone"></i>
+                צור קשר
+            </button>
+        </div>
+    </nav>
+
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="hero-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="logo-details">
+                            <div class="logo-tagline">PREMIUM QUALITY</div>
+                            <h1>שיפוצי פרימיום</h1>
+                            <p class="logo-subtitle">המומחים לשיפוצים ברמה הגבוהה ביותר</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-badges">
+                    <div class="badge" onclick="openQualityModal()">
+                        <i class="fas fa-award"></i>
+                        איכות מובטחת
+                    </div>
+                    <div class="badge" onclick="openPriceModal()">
+                        <i class="fas fa-clock"></i>
+                        הצעת מחיר תוך 24 שעות
+                    </div>
+                    <div class="badge" onclick="openInsuranceModal()">
+                        <i class="fas fa-shield-alt"></i>
+                        ביטוח מלא
+                    </div>
+                    <div class="badge" onclick="scrollToTestimonials()">
+                        <i class="fas fa-star"></i>
+                        +500 לקוחות מרוצים
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Services Section -->
+        <section class="services-section" id="services">
+            <div class="section-title">
+                <h2>השירותים שלנו</h2>
+                <p style="color: #b8c6db; font-size: 1.2rem; margin-top: 15px;">מגוון שירותי שיפוצים מקצועיים תחת קורת גג אחת</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon" style="font-size: 2.5rem; color: #ffcd3c; margin-bottom: 15px;">🔨</div>
+                    <h4>שיפוצים כלליים</h4>
+                    <p style="color: #b8c6db; margin-top: 10px; font-size: 0.95rem;">שיפוץ דירות ובתים מקצה לקצה עם צוות מיומן וחומרים איכותיים</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon" style="font-size: 2.5rem; color: #ffcd3c; margin-bottom: 15px;">🏗️</div>
+                    <h4>ריצוף</h4>
+                    <p style="color: #b8c6db; margin-top: 10px; font-size: 0.95rem;">התקנת ריצוף מכל הסוגים - קרמיקה, פרקט, גרניט פורצלן ועוד</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon" style="font-size: 2.5rem; color: #ffcd3c; margin-bottom: 15px;">🎨</div>
+                    <h4>קרמיקה</h4>
+                    <p style="color: #b8c6db; margin-top: 10px; font-size: 0.95rem;">חיפוי קירות בקרמיקה למטבח, אמבטיה ושטחים נוספים</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon" style="font-size: 2.5rem; color: #ffcd3c; margin-bottom: 15px;">🖌️</div>
+                    <h4>צביעה</h4>
+                    <p style="color: #b8c6db; margin-top: 10px; font-size: 0.95rem;">צביעת דירות ובתים עם צבעים איכותיים וגימור מושלם</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon" style="font-size: 2.5rem; color: #ffcd3c; margin-bottom: 15px;">🏺</div>
+                    <h4>שפכטל</h4>
+                    <p style="color: #b8c6db; margin-top: 10px; font-size: 0.95rem;">תיקון קירות, החלקה וההכנה המושלמת לצביעה</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon" style="font-size: 2.5rem; color: #ffcd3c; margin-bottom: 15px;">🧱</div>
+                    <h4>חיפויים</h4>
+                    <p style="color: #b8c6db; margin-top: 10px; font-size: 0.95rem;">חיפוי קירות באבן טבעית, לבנים וחומרים מעוצבים</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon" style="font-size: 2.5rem; color: #ffcd3c; margin-bottom: 15px;">🚿</div>
+                    <h4>אינסטלציה</h4>
+                    <p style="color: #b8c6db; margin-top: 10px; font-size: 0.95rem;">עבודות אינסטלציה מקצועיות למטבח, אמבטיה ושירותים</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon" style="font-size: 2.5rem; color: #ffcd3c; margin-bottom: 15px;">⚡</div>
+                    <h4>חשמל</h4>
+                    <p style="color: #b8c6db; margin-top: 10px; font-size: 0.95rem;">התקנות חשמל מקצועיות, נקודות חשמל ותאורה</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="portfolio-section" style="padding: 100px 0; background: rgba(0,0,0,0.1);">
+            <div class="container">
+                <div class="section-title">
+                    <h2>מהעבודות שלנו</h2>
+                    <p style="color: #b8c6db; font-size: 1.2rem; margin-top: 15px;">תראו בעצמכם את איכות העבודה והתוצאות המדהימות שאנחנו מספקים</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin-top: 60px;">
+                    <div class="portfolio-item fade-in-left" style="background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 25px 60px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        <div style="position: relative; height: 300px; background: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABgAIADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k=') center/cover; border-radius: 15px 15px 0 0;">
+                            <div style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #ff6b35, #ffcd3c); padding: 8px 15px; border-radius: 20px; color: white; font-weight: 600; font-size: 0.9rem;">
+                                🏠 פרויקט #1
+                            </div>
+                        </div>
+                        <div style="padding: 25px;">
+                            <h3 style="color: #ffffff; font-size: 1.4rem; margin-bottom: 10px;">וילת יוקרה מודרנית</h3>
+                            <p style="color: #b8c6db; line-height: 1.6; margin-bottom: 15px;">שיפוץ מלא של וילה דו-קומתית עם בריכה פרטית, חזית מודרנית ועיצוב אדריכלי מתקדם</p>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">שיפוץ מלא</span>
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">בריכה</span>
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">עיצוב מודרני</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in-up" style="background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 25px 60px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        <div style="position: relative; height: 300px; background: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABgAIADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k=') center/cover; border-radius: 15px 15px 0 0;">
+                            <div style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #ff6b35, #ffcd3c); padding: 8px 15px; border-radius: 20px; color: white; font-weight: 600; font-size: 0.9rem;">
+                                🏗️ פרויקט #2
+                            </div>
+                        </div>
+                        <div style="padding: 25px;">
+                            <h3 style="color: #ffffff; font-size: 1.4rem; margin-bottom: 10px;">אחוזה יוקרתית עם נוף</h3>
+                            <p style="color: #b8c6db; line-height: 1.6; margin-bottom: 15px;">פרויקט בניה והקמה של אחוזה יוקרתית עם בריכה, גינה מטופחת ונוף פתוח מרהיב</p>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">בניה חדשה</span>
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">נוף</span>
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">יוקרה</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in-right" style="background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 25px 60px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        <div style="position: relative; height: 300px; background: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABgAIADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k=') center/cover; border-radius: 15px 15px 0 0;">
+                            <div style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #ff6b35, #ffcd3c); padding: 8px 15px; border-radius: 20px; color: white; font-weight: 600; font-size: 0.9rem;">
+                                ✨ פרויקט #3
+                            </div>
+                        </div>
+                        <div style="padding: 25px;">
+                            <h3 style="color: #ffffff; font-size: 1.4rem; margin-bottom: 10px;">בית פרטי מרהיב</h3>
+                            <p style="color: #b8c6db; line-height: 1.6; margin-bottom: 15px;">שיפוץ וחידוש של בית פרטי עם תאורה אמביאנטלית, בריכה אינסוף ועיצוב אלגנטי</p>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">תאורה מיוחדת</span>
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">בריכה אינסוף</span>
+                                <span style="background: rgba(255,107,53,0.2); color: #ffcd3c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem;">יוקרתי</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px;">
+                    <p style="color: #b8c6db; font-size: 1.1rem; margin-bottom: 20px;">רוצים לראות איך הבית שלכם יכול להיראות?</p>
+                    <button onclick="scrollToContact()" style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); color: white; padding: 20px 40px; border: none; border-radius: 20px; font-size: 1.3rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 15px 35px rgba(255,107,53,0.4);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 25px 50px rgba(255,107,53,0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 15px 35px rgba(255,107,53,0.4)'">
+                        🏠 בואו נתחיל לתכנן יחד!
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="why-choose-section" style="padding: 100px 0; background: rgba(0,0,0,0.2);">
+            <div class="container">
+                <div class="section-title">
+                    <h2>למה לבחור בנו?</h2>
+                    <p style="color: #b8c6db; font-size: 1.2rem; margin-top: 15px;">אנחנו לא רק עושים שיפוצים - אנחנו יוצרים בתים של חלומות</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px;">
+                    <div class="feature-card fade-in-up" style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">⭐</div>
+                        <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 15px;">+500 פרויקטים מוצלחים</h3>
+                        <p style="color: #b8c6db; line-height: 1.6;">מעל 500 לקוחות מרוצים שבחרו בנו לשיפוץ הבית שלהם וקיבלו בדיוק מה שחלמו עליו</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in-up" style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🎯</div>
+                        <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 15px;">15+ שנות ניסיון</h3>
+                        <p style="color: #b8c6db; line-height: 1.6;">צוות של מקצוענים ותיקים שצברו ניסיון עשיר בכל סוגי השיפוצים והפרויקטים</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in-up" style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">💎</div>
+                        <h3 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 15px;">חומרים מהשורה הראשונה</h3>
+                        <p style="color: #b8c6db; line-height: 1.6;">אנחנו עובדים רק עם חומרי גלם איכותיים מהמותגים המובילים בשוק</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section" style="padding: 100px 0;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>איך אנחנו עובדים?</h2>
+                    <p style="color: #b8c6db; font-size: 1.2rem; margin-top: 15px;">תהליך שקוף ומסודר שמבטיח לכם תוצאה מושלמת</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 60px;">
+                    <div class="process-step slide-in-scale" style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-weight: bold; font-size: 1.5rem;">1</div>
+                        <h3 style="color: #ffffff; margin-bottom: 15px;">קבלת פנייה</h3>
+                        <p style="color: #b8c6db; line-height: 1.6;">אתם פונים אלינו דרך האתר או בטלפון ואנחנו מתעניינים בפרטי הפרויקט</p>
+                    </div>
+                    
+                    <div class="process-step slide-in-scale" style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-weight: bold; font-size: 1.5rem;">2</div>
+                        <h3 style="color: #ffffff; margin-bottom: 15px;">סיור ומדידות</h3>
+                        <p style="color: #b8c6db; line-height: 1.6;">אנחנו מגיעים לסיור באתר, לוקחים מידות ומבינים בדיוק מה אתם רוצים</p>
+                    </div>
+                    
+                    <div class="process-step slide-in-scale" style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-weight: bold; font-size: 1.5rem;">3</div>
+                        <h3 style="color: #ffffff; margin-bottom: 15px;">הצעת מחיר</h3>
+                        <p style="color: #b8c6db; line-height: 1.6;">תוך 24 שעות אתם מקבלים הצעת מחיר מפורטת ושקופה</p>
+                    </div>
+                    
+                    <div class="process-step slide-in-scale" style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.1);">
+                        <div style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-weight: bold; font-size: 1.5rem;">4</div>
+                        <h3 style="color: #ffffff; margin-bottom: 15px;">ביצוע העבודה</h3>
+                        <p style="color: #b8c6db; line-height: 1.6;">אנחנו מתחילים לעבוד בהתאם ללוח הזמנים המוסכם ועם עדכונים שוטפים</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section" id="testimonials" style="padding: 100px 0; background: rgba(0,0,0,0.2);">
+            <div class="container">
+                <div class="section-title">
+                    <h2>מה הלקוחות אומרים עלינו</h2>
+                    <p style="color: #b8c6db; font-size: 1.2rem; margin-top: 15px;">אין משוב טוב יותר מלקוחות מרוצים</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                        <div style="color: #ffcd3c; font-size: 2rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: #ffffff; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">"עבדו אצלנו על שיפוץ מלא של הדירה. העבודה הייתה מקצועית, נקייה ובזמן. הצוות מאוד אדיב והתוצאה מעבר לציפיות!"</p>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #ff6b35, #ffcd3c); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">מ</div>
+                            <div>
+                                <div style="color: #ffffff; font-weight: 600;">משה כהן</div>
+                                <div style="color: #b8c6db; font-size: 0.9rem;">תל אביב</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                        <div style="color: #ffcd3c; font-size: 2rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: #ffffff; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">"הזמנו אותם לשיפוץ המטבח והם עשו עבודה פנטסטית! מהתכנון ועד הביצוע - הכל היה מושלם. ממליצה בחום!"</p>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #ff6b35, #ffcd3c); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">ש</div>
+                            <div>
+                                <div style="color: #ffffff; font-weight: 600;">שרה לוי</div>
+                                <div style="color: #b8c6db; font-size: 0.9rem;">ירושלים</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                        <div style="color: #ffcd3c; font-size: 2rem; margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: #ffffff; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">"צוות אמין ומקצועי. עשו לנו שיפוץ חלקי ולא היה אף פעם לחץ או בעיות. הכל זרם חלקי והתוצאה מושלמת!"</p>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #ff6b35, #ffcd3c); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">ד</div>
+                            <div>
+                                <div style="color: #ffffff; font-weight: 600;">דני אברהם</div>
+                                <div style="color: #b8c6db; font-size: 0.9rem;">חיפה</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-section" id="contact">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>🎯 בואו נתחיל לעבוד!</h2>
+                    <p>השאירו פרטים ונחזור אליכם תוך 24 שעות עם הצעת מחיר מדויקת ומפורטת</p>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">
+                                <i class="fas fa-user"></i>
+                                שם פרטי
+                            </label>
+                            <input type="text" id="firstName" name="from_name" required placeholder="הכנס שם פרטי">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">
+                                <i class="fas fa-user-tag"></i>
+                                שם משפחה
+                            </label>
+                            <input type="text" id="lastName" name="last_name" required placeholder="הכנס שם משפחה">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">
+                                <i class="fas fa-phone"></i>
+                                מספר טלפון
+                            </label>
+                            <input type="tel" id="phone" name="phone" required placeholder="050-123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                כתובת אימייל
+                            </label>
+                            <input type="email" id="email" name="reply_to" placeholder="example@gmail.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectDetails">
+                            <i class="fas fa-clipboard-list"></i>
+                            ספרו לנו קצת על העבודה או הפרויקט שאתם רוצים
+                        </label>
+                        <textarea id="projectDetails" name="message" required placeholder="תארו בפרטים את הפרויקט: איזה חדרים, סוג העבודה הנדרשת, לוח זמנים מועדף, תקציב משוער, או כל מידע נוסף שיעזור לנו להכין הצעה מדויקת..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        📞 שלח בקשה וקבל הצעת מחיר חינם!
+                    </button>
+
+                    <div class="success-message" id="successMessage">
+                        ✅ תודה! הבקשה נשלחה בהצלחה. נחזור אליך תוך 24 שעות עם הצעת מחיר מפורטת!
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Quality Modal -->
+    <div class="modal" id="qualityModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-award"></i> איכות מובטחת</h3>
+                <button class="close-modal" onclick="closeModal('qualityModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>אנחנו מתחייבים לאיכות ברמה הגבוהה ביותר בכל פרויקט:</p>
+                
+                <h4>🏆 התחייבות לאיכות</h4>
+                <ul>
+                    <li>רק חומרי גלם מהמותגים המובילים בשוק</li>
+                    <li>צוות מיומן עם ניסיון של מעל 15 שנה</li>
+                    <li>בדיקת איכות בכל שלב של הפרויקט</li>
+                    <li>גימור מושלם ללא פשרות</li>
+                </ul>
+
+                <h4>🔒 אחריות מלאה</h4>
+                <ul>
+                    <li>אחריות של 3 שנים על כל עבודה</li>
+                    <li>תיקונים חינם במהלך תקופת האחריות</li>
+                    <li>שירות 24/7 לבעיות דחופות</li>
+                    <li>התחייבות בכתב על איכות החומרים</li>
+                </ul>
+
+                <h4>✅ סטנדרטים גבוהים</h4>
+                <ul>
+                    <li>עמידה בתקנים הישראליים והאירופיים</li>
+                    <li>שימוש בכלים מקצועיים מתקדמים</li>
+                    <li>ניקיון ואסתטיקה בכל שלב</li>
+                    <li>לוחות זמנים מדויקים</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insurance Modal -->
+    <div class="modal" id="insuranceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt"></i> ביטוח מלא</h3>
+                <button class="close-modal" onclick="closeModal('insuranceModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>אנחנו מבוטחים במלואנו כדי להבטיח את שקט הנפש שלכם:</p>
+                
+                <h4>🛡️ ביטוח צד שלישי</h4>
+                <ul>
+                    <li>כיסוי של עד 2 מיליון ₪ לנזקי צד שלישי</li>
+                    <li>הגנה מפני נזקים לרכוש השכנים</li>
+                    <li>כיסוי נזקי מים ולכלוך</li>
+                    <li>אחריות על פעילות כל חברי הצוות</li>
+                </ul>
+
+                <h4>🏠 ביטוח רכוש</h4>
+                <ul>
+                    <li>כיסוי מלא לנזקים בבית הלקוח</li>
+                    <li>ביטוח ציוד וכלי עבודה</li>
+                    <li>הגנה על רהיטים וחפצי ערך</li>
+                    <li>פיצוי מיידי במקרה של נזק</li>
+                </ul>
+
+                <h4>👷 ביטוח עובדים</h4>
+                <ul>
+                    <li>ביטוח לאומי מלא לכל העובדים</li>
+                    <li>ביטוח תאונות אישיות</li>
+                    <li>כיסוי רפואי מורחב</li>
+                    <li>פעילות חוקית בלבד</li>
+                </ul>
+
+                <p style="margin-top: 20px; font-weight: 600; color: #ffcd3c;">
+                    📋 כל פוליסות הביטוח שלנו מעודכנות ותקפות - נוכל להציג אישורים במעמד החתימת החוזה
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Price Quote Modal -->
+    <div class="modal" id="priceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-clock"></i> הצעת מחיר תוך 24 שעות</h3>
+                <button class="close-modal" onclick="closeModal('priceModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">⏰</div>
+                    <h4 style="color: #ffcd3c; font-size: 1.8rem; margin-bottom: 20px;">איך זה עובד?</h4>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                        <div style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">1</div>
+                        <div>
+                            <h5 style="color: #ffffff; margin: 0 0 5px 0;">השארת פרטים</h5>
+                            <p style="color: #b8c6db; margin: 0; font-size: 0.95rem;">מלאו את הטופס עם פרטי הפרויקט שלכם</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                        <div style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">2</div>
+                        <div>
+                            <h5 style="color: #ffffff; margin: 0 0 5px 0;">יצירת קשר מיידית</h5>
+                            <p style="color: #b8c6db; margin: 0; font-size: 0.95rem;">נציגנו יתקשר אליכם תוך שעה לתיאום פגישה</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                        <div style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">3</div>
+                        <div>
+                            <h5 style="color: #ffffff; margin: 0 0 5px 0;">סיור ומדידות</h5>
+                            <p style="color: #b8c6db; margin: 0; font-size: 0.95rem;">נגיע לסיור באתר ולוקחים מידות מדויקות</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                        <div style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">4</div>
+                        <div>
+                            <h5 style="color: #ffffff; margin: 0 0 5px 0;">הצעת מחיר מפורטת</h5>
+                            <p style="color: #b8c6db; margin: 0; font-size: 0.95rem;">תוך 24 שעות תקבלו הצעה מפורטת וכתובה</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(255,107,53,0.2), rgba(255,205,60,0.2)); padding: 20px; border-radius: 15px; margin-top: 30px; text-align: center; border: 1px solid rgba(255,107,53,0.3);">
+                    <h4 style="color: #ffcd3c; margin: 0 0 10px 0;">💯 התחייבות שלנו</h4>
+                    <p style="color: #ffffff; margin: 0; font-weight: 600;">אין עלויות נסתרות • הצעת מחיר ללא התחייבות • מחירים הוגנים ושקופים</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 25px;">
+                    <button onclick="closeModal('priceModal'); scrollToContact();" style="background: linear-gradient(135deg, #ff6b35, #ffcd3c); color: white; padding: 15px 30px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                        💬 השאירו פרטים עכשיו!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal phone-modal" id="phoneModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-phone"></i> צור קשר</h3>
+                <button class="close-modal" onclick="closeModal('phoneModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>מוזמנים להתקשר אלינו עכשיו!</p>
+                <div class="phone-number">050-123-4567</div>
+                <p>זמינים 24/7 לייעוץ והצעת מחיר</p>
+                <a href="tel:050-123-4567" class="call-btn">
+                    <i class="fas fa-phone"></i>
+                    התקשר עכשיו
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="חזור למעלה">
+        <i class="fas fa-chevron-up arrow"></i>
+    </button>
+
+    <!-- Floating Social Media Icons -->
+    <div class="floating-social">
+        <a href="#" class="floating-social-link facebook" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="floating-social-link instagram" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/972501234567" class="floating-social-link whatsapp" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#" class="floating-social-link tiktok" aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+        </a>
+    </div>
+
+    <!-- Contact Footer -->
+    <footer class="contact-footer">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-title">התקשרו עכשיו</div>
+                    <div class="contact-value">050-123-4567</div>
+                    <div class="contact-subtitle">זמינים 24/7 לייעוץ והצעת מחיר</div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-title">שלחו מייל</div>
+                    <div class="contact-value">info@premium-renovations.co.il</div>
+                    <div class="contact-subtitle">נחזור אליכם תוך 24 שעות</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Modal functions
+        function openQualityModal() {
+            document.getElementById('qualityModal').classList.add('show');
+        }
+
+        function openInsuranceModal() {
+            document.getElementById('insuranceModal').classList.add('show');
+        }
+
+        function openPriceModal() {
+            document.getElementById('priceModal').classList.add('show');
+        }
+
+        function openPhoneModal() {
+            document.getElementById('phoneModal').classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // תפקוד גלילה לחלק המלצות
+        function scrollToTestimonials() {
+            document.getElementById('testimonials').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        }
+
+        // Smooth scroll functions
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function scrollToServices() {
+            document.getElementById('services').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Form submission handler with EmailJS
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // הוסף אינדיקטור טעינה
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> שולח...';
+            submitBtn.disabled = true;
+            
+            // שלח מייל דרך EmailJS
+            emailjs.sendForm(
+                'service_5iaik6d',        // Service ID שלך
+                'template_mgl1bbi',       // Template ID שלך - עכשיו נכון!
+                this
+            ).then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                
+                // הצג הודעת הצלחה
+                const successMessage = document.getElementById('successMessage');
+                successMessage.classList.add('show');
+                
+                // אפס את הטופס
+                document.getElementById('contactForm').reset();
+                
+                // החזר את הכפתור למצב רגיל
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // הסתר הודעת הצלחה אחרי 5 שניות
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+                
+            }, function(error) {
+                console.log('FAILED...', error);
+                
+                // הצג הודעת שגיאה
+                let errorMessage = document.getElementById('errorMessage');
+                if (!errorMessage) {
+                    errorMessage = document.createElement('div');
+                    errorMessage.id = 'errorMessage';
+                    errorMessage.className = 'error-message';
+                    errorMessage.innerHTML = '❌ שליחת המייל נכשלה. אנא נסה שוב או התקשר ישירות.';
+                    document.querySelector('.contact-form').appendChild(errorMessage);
+                }
+                errorMessage.classList.add('show');
+                
+                // החזר את הכפתור למצב רגיל
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // הסתר הודעת שגיאה אחרי 5 שניות
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 5000);
+            });
+        });
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 3) {
+                value = value.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+            }
+            e.target.value = value;
+        });
+
+        // Back to Top Button functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/Hide Back to Top Button based on scroll
+        function handleBackToTopButton() {
+            const backToTopBtn = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        }
+
+        // Add scroll event listener
+        window.addEventListener('scroll', handleBackToTopButton);
+
+        // Intersection Observer לאנימציות גלילה
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            // הוסף מעקב לכל האלמנטים עם אנימציות
+            const animatedElements = document.querySelectorAll('.fade-in-left, .fade-in-right, .fade-in-up, .fade-in-down, .slide-in-scale');
+            animatedElements.forEach(el => observer.observe(el));
+        }
+
+        // Initialize particles on page load
+        window.addEventListener('load', function() {
+            createParticles();
+            initScrollAnimations();
+        });
+
+        // Add smooth scrolling offset for fixed navbar
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שיפוצי פרימיום | המומחים לשיפוצים ברמה הגבוהה ביותר</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- EmailJS Script -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // הכנה של EmailJS כשהדף נטען
+        (function() {
+            emailjs.init("0z2tfaBePXzn0TCiE");
+        })();
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #16213e 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 12px 25px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: #ff6b35;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        .nav-btn i {
+            color: #ffcd3c;
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header Section */
+        .header {
+            padding: 100px 0 40px;
+            text-align: center;
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 0 auto 30px;
+            max-width: 500px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e, #ffcd3c, #ffd700, #ff6b35);
+            background-size: 300% 300%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            animation: 
+                logoSpin 8s linear infinite,
+                gradientWave 4s ease-in-out infinite,
+                logoPulse 3s ease-in-out infinite;
+            box-shadow: 
+                0 0 30px rgba(255, 107, 53, 0.6),
+                0 0 60px rgba(255, 205, 60, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8));
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent,
+                rgba(255, 107, 53, 0.3),
+                transparent,
+                rgba(255, 205, 60, 0.4),
+                transparent
+            );
+            animation: borderRotate 3s linear infinite;
+            z-index: -1;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            right: 15%;
+            bottom: 15%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.4) 0%,
+                transparent 50%,
+                rgba(255, 107, 53, 0.2) 100%
+            );
+            border-radius: 50%;
+            animation: innerShine 2s ease-in-out infinite alternate;
+        }
+
+        .logo-icon i {
+            position: relative;
+            z-index: 2;
+            animation: iconBounce 2.5s ease-in-out infinite;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 107, 53, 0.6),
+                0 0 30px rgba(255, 205, 60, 0.4);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+        }
+
+        @keyframes logoSpin {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg) scale(1.05); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            75% { transform: rotate(270deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes gradientWave {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8)) hue-rotate(0deg);
+            }
+            25% { 
+                background-position: 100% 0%;
+                filter: drop-shadow(0 0 25px rgba(255, 205, 60, 0.9)) hue-rotate(30deg);
+            }
+            50% { 
+                background-position: 100% 100%;
+                filter: drop-shadow(0 0 30px rgba(255, 140, 0, 0.8)) hue-rotate(60deg);
+            }
+            75% { 
+                background-position: 0% 100%;
+                filter: drop-shadow(0 0 25px rgba(255, 107, 53, 0.9)) hue-rotate(30deg);
+            }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 30px rgba(255, 107, 53, 0.6),
+                    0 0 60px rgba(255, 205, 60, 0.4),
+                    inset 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+            50% { 
+                transform: scale(1.08);
+                box-shadow: 
+                    0 0 40px rgba(255, 107, 53, 0.8),
+                    0 0 80px rgba(255, 205, 60, 0.6),
+                    0 0 120px rgba(255, 140, 0, 0.3),
+                    inset 0 0 40px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        @keyframes innerShine {
+            0% { 
+                opacity: 0.3;
+                transform: scale(1) rotate(0deg);
+            }
+            100% { 
+                opacity: 0.8;
+                transform: scale(1.2) rotate(180deg);
+            }
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { 
+                transform: translateY(0px) scale(1) rotate(0deg);
+                text-shadow: 
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 107, 53, 0.6);
+            }
+            25% { 
+                transform: translateY(-3px) scale(1.1) rotate(5deg);
+                text-shadow: 
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 205, 60, 0.8);
+            }
+            50% { 
+                transform: translateY(-5px) scale(1.15) rotate(0deg);
+                text-shadow: 
+                    0 0 20px rgba(255, 255, 255, 1.2),
+                    0 0 40px rgba(255, 140, 0, 0.9);
+            }
+            75% { 
+                transform: translateY(-3px) scale(1.1) rotate(-5deg);
+                text-shadow: 
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 107, 53, 0.8);
+            }
+        }
+
+        .logo-container {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 107, 53, 0.05) 25%,
+                rgba(255, 205, 60, 0.05) 50%,
+                rgba(255, 140, 0, 0.05) 75%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            backdrop-filter: blur(30px);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 0 auto 30px;
+            max-width: 500px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 107, 53, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: containerFloat 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 70%,
+                rgba(255, 107, 53, 0.1) 80%,
+                rgba(255, 205, 60, 0.1) 90%,
+                transparent 100%
+            );
+            animation: containerGlow 8s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes containerFloat {
+            0%, 100% { 
+                transform: translateY(0px);
+                box-shadow: 
+                    0 20px 60px rgba(0, 0, 0, 0.3),
+                    0 0 0 1px rgba(255, 107, 53, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+            33% { 
+                transform: translateY(-8px);
+                box-shadow: 
+                    0 25px 70px rgba(0, 0, 0, 0.4),
+                    0 0 0 1px rgba(255, 205, 60, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            66% { 
+                transform: translateY(4px);
+                box-shadow: 
+                    0 15px 50px rgba(0, 0, 0, 0.25),
+                    0 0 0 1px rgba(255, 140, 0, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            }
+        }
+
+        @keyframes containerGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo h1 {
+            color: #ffffff;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #ffcd3c 25%,
+                #ff6b35 50%,
+                #ffd700 75%,
+                #ffffff 100%
+            );
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+            margin: 0;
+            animation: textShimmer 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .logo h1::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.5) 50%,
+                transparent 70%
+            );
+            animation: textGloss 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+            }
+            50% { 
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes textGloss {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            20% { transform: translateX(-100%) skewX(-15deg); }
+            80% { transform: translateX(100%) skewX(-15deg); }
+            100% { transform: translateX(100%) skewX(-15deg); }
+        }
+
+        .logo-tagline {
+            color: #ffcd3c;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            animation: taglineGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px rgba(255, 205, 60, 0.5);
+        }
+
+        @keyframes taglineGlow {
+            0% { 
+                text-shadow: 0 0 10px rgba(255, 205, 60, 0.5);
+                transform: scale(1);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 20px rgba(255, 205, 60, 0.8),
+                    0 0 30px rgba(255, 107, 53, 0.4);
+                transform: scale(1.02);
+            }
+        }
+
+        .logo-subtitle {
+            color: #b8c6db;
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.9;
+            animation: subtitleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes subtitleFloat {
+            0%, 100% { 
+                transform: translateY(0px);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateY(-2px);
+                opacity: 1;
+            }
+        }
+
+        .hero-badges {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .badge {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 107, 53, 0.1) 50%,
+                rgba(255, 205, 60, 0.1) 100%
+            );
+            backdrop-filter: blur(15px);
+            padding: 15px 20px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: badgeFloat 3s ease-in-out infinite;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .badge:hover {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 107, 53, 0.2) 50%,
+                rgba(255, 205, 60, 0.2) 100%
+            );
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 30px rgba(255, 107, 53, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 107, 53, 0.4);
+        }
+
+        .badge:hover::before {
+            left: 100%;
+        }
+
+        .badge:active {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .badge:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .badge:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .badge:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .badge:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { 
+                transform: translateY(0px);
+            }
+            50% { 
+                transform: translateY(-3px);
+            }
+        }
+
+        .badge i {
+            margin-left: 8px;
+            color: #ffcd3c;
+            font-size: 1rem;
+            animation: iconSparkle 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 205, 60, 0.5);
+        }
+
+        @keyframes iconSparkle {
+            0%, 100% { 
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(255, 205, 60, 0.5);
+            }
+            50% { 
+                transform: scale(1.2);
+                text-shadow: 
+                    0 0 15px rgba(255, 205, 60, 0.8),
+                    0 0 25px rgba(255, 107, 53, 0.4);
+            }
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            color: #ffffff;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b35, #ffcd3c);
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card h4 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .contact-section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            border-radius: 40px;
+            padding: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .form-header h2 {
+            color: #ffffff;
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #ffcd3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-header p {
+            color: #b8c6db;
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: #ffcd3c;
+            font-size: 1.2rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px 25px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            direction: rtl;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6b35, #ffcd3c);
+            color: white;
+            padding: 25px 50px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(255, 107, 53, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: modalSlideIn 0.4s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            position: sticky;
+            top: 0;
+            background: rgba(26, 26, 46, 0.95);
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h3 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b35, #ffcd3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            flex: 1;
+        }
+
+        .close-modal {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid rgba(255, 107, 53, 0.5);
+            color: #ffffff;
+            font-size: 1.5rem;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 107, 53, 0.4);
+            border-color: #ff6b35;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+
+        .close-modal:active {
+            transform: scale(0.95);
+        }
+
+        .modal-body {
+            color: #b8c6db;
+            line-height: 1.8;
+        }
+
+        .modal-body h4 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin: 20px 0 10px;
+            font-weight: 600;
+        }
+
+        .modal-body ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-body li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #e8f4f8;
+        }
+
+        .modal-body li::before {
+            content: '✓';
+            color: #ffcd3c;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Phone Modal */
+        .phone-modal .modal-content {
+            text-align: center;
+        }
+
+        .phone-number {
+            background: linear-gradient(135deg, #ff6b35, #ffcd3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 20px 0;
+            direction: ltr;
+        }
+
+        .call-btn {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .call-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Floating Social Media Icons */
+        .floating-social {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .floating-social-link {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.4rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-social-link:hover {
+            transform: translateX(-10px) scale(1.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .floating-social-link.facebook {
+            background: rgba(24, 119, 242, 0.9);
+        }
+
+        .floating-social-link.facebook:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+        }
+
+        .floating-social-link.instagram {
+            background: rgba(225, 48, 108, 0.9);
+        }
+
+        .floating-social-link.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border-color: #e6683c;
+        }
+
+        .floating-social-link.whatsapp {
+            background: rgba(37, 211, 102, 0.9);
+        }
+
+        .floating-social-link.whatsapp:hover {
+            background: #25d366;
+            border-color: #25d366;
+        }
+
+        .floating-social-link.tiktok {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .floating-social-link.tiktok:hover {
+            background: #000000;
+            border-color: #ff0050;
+        }
+
+        /* Contact Info Footer */
+        .contact-footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 60px 0;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b35, #ffcd3c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.4);
+        }
+
+        .contact-title {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .contact-value {
+            color: #ffcd3c;
+            font-size: 1.8rem;
+            font-weight: 600;
+            direction: ltr;
+            margin-bottom: 10px;
+        }
+
+        .contact-subtitle {
+            color: #b8c6db;
+            font-size: 1rem;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 35px rgba(40, 167, 69, 0.3);
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Error Message */
+        .error-message {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 35px rgba(220, 53, 69, 0.3);
+        }
+
+        .error-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(50px) scale(0.8);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .back-to-top:hover {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb, #3b82f6);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.6);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .back-to-top::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #60a5fa, #3b82f6, #60a5fa, #3b82f6);
+            border-radius: 50%;
+            z-index: -1;
+            animation: borderSpinSlow 3s linear infinite;
+        }
+
+        .back-to-top .arrow {
+            animation: arrowBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes borderSpinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4); }
+            50% { box-shadow: 0 15px 35px rgba(37, 99, 235, 0.7); }
+        }
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in-down {
+            opacity: 0;
+            transform: translateY(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-scale {
+            opacity: 0;
+            transform: scale(0.8) translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .animate {
+            opacity: 1;
+            transform: translateX(0) translateY(0) scale(1);
+        }
+
+        /* Staggered animations */
+        .service-card {
+            transition-delay: 0.1s;
+        }
+
+        .service-card:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .service-card:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .service-card:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .service-card:nth-child(5) {
+            transition-delay: 0.5s;
+        }
+
+        .service-card:nth-child(6) {
+            transition-delay: 0.6s;
+        }
+
+        .service-card:nth-child(7) {
+            transition-delay: 0.7s;
+        }
+
+        .service-card:nth-child(8) {
+            transition-delay: 0.8s;
+        }
+
+        .feature-card:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .feature-card:nth-child(2) {
+            transition-delay: 0.3s;
+        }
+
+        .feature-card:nth-child(3) {
+            transition-delay: 0.5s;
+        }
+
+        .process-step:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .process-step:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .process-step:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .process-step:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .nav-container {
+                gap: 15px;
+            }
+
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+                gap: 5px;
+            }
+
+            .header {
+                padding: 80px 0 30px;
+                min-height: 50vh;
+            }
+
+            .logo-container {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .logo {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .logo h1 {
+                font-size: 2.2rem;
+                text-align: center;
+            }
+
+            .logo-tagline {
+                font-size: 0.8rem;
+                text-align: center;
+            }
+
+            .logo-subtitle {
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .hero-badges {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-top: 20px;
+            }
+
+            .badge {
+                padding: 12px 15px;
+                font-size: 0.85rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .service-card {
+                padding: 25px 20px;
+            }
+
+            .service-card h4 {
+                font-size: 1.2rem;
+            }
+
+            .modal-content {
+                padding: 20px 15px;
+                margin: 10px;
+                max-height: 90vh;
+                border-radius: 20px;
+            }
+
+            .modal-header {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+
+            .modal-header h3 {
+                font-size: 1.4rem;
+            }
+
+            .close-modal {
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
+
+            .modal-body {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .modal-body h4 {
+                font-size: 1.1rem;
+                margin: 15px 0 8px;
+            }
+
+            .modal-body li {
+                font-size: 0.85rem;
+                margin-bottom: 8px;
             }
 
             .phone-number {
