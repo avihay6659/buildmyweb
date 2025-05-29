@@ -115,26 +115,30 @@
 
         /* Header Section */
         .header {
-            padding: 120px 0 60px;
+            padding: 100px 0 40px;
             text-align: center;
             position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .logo-container {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 50px;
-            margin: 0 auto 40px;
-            max-width: 600px;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 0 auto 30px;
+            max-width: 500px;
             border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             animation: logoFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
         }
 
         .logo {
@@ -142,140 +146,458 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .logo-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(45deg, #2563eb, #3b82f6, #60a5fa, #2563eb);
-            background-size: 400% 400%;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e, #ffcd3c, #ffd700, #ff6b35);
+            background-size: 300% 300%;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 1.8rem;
             color: white;
-            box-shadow: 0 20px 50px rgba(37, 99, 235, 0.5);
-            animation: logoSpin 4s linear infinite, gradientShift 3s ease-in-out infinite;
             position: relative;
             overflow: hidden;
+            animation: 
+                logoSpin 8s linear infinite,
+                gradientWave 4s ease-in-out infinite,
+                logoPulse 3s ease-in-out infinite;
+            box-shadow: 
+                0 0 30px rgba(255, 107, 53, 0.6),
+                0 0 60px rgba(255, 205, 60, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8));
         }
 
         .logo-icon::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #1d4ed8, #60a5fa, #1d4ed8, #60a5fa);
-            border-radius: 50%;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent,
+                rgba(255, 107, 53, 0.3),
+                transparent,
+                rgba(255, 205, 60, 0.4),
+                transparent
+            );
+            animation: borderRotate 3s linear infinite;
             z-index: -1;
-            animation: borderSpin 2s linear infinite;
         }
 
         .logo-icon::after {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            top: 15%;
+            left: 15%;
+            right: 15%;
+            bottom: 15%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.4) 0%,
+                transparent 50%,
+                rgba(255, 107, 53, 0.2) 100%
+            );
             border-radius: 50%;
-            animation: innerGlow 2s ease-in-out infinite alternate;
+            animation: innerShine 2s ease-in-out infinite alternate;
+        }
+
+        .logo-icon i {
+            position: relative;
+            z-index: 2;
+            animation: iconBounce 2.5s ease-in-out infinite;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 107, 53, 0.6),
+                0 0 30px rgba(255, 205, 60, 0.4);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
         }
 
         @keyframes logoSpin {
             0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            25% { transform: rotate(90deg) scale(1.05); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            75% { transform: rotate(270deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        @keyframes gradientWave {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8)) hue-rotate(0deg);
+            }
+            25% { 
+                background-position: 100% 0%;
+                filter: drop-shadow(0 0 25px rgba(255, 205, 60, 0.9)) hue-rotate(30deg);
+            }
+            50% { 
+                background-position: 100% 100%;
+                filter: drop-shadow(0 0 30px rgba(255, 140, 0, 0.8)) hue-rotate(60deg);
+            }
+            75% { 
+                background-position: 0% 100%;
+                filter: drop-shadow(0 0 25px rgba(255, 107, 53, 0.9)) hue-rotate(30deg);
+            }
         }
 
-        @keyframes borderSpin {
+        @keyframes logoPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 30px rgba(255, 107, 53, 0.6),
+                    0 0 60px rgba(255, 205, 60, 0.4),
+                    inset 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+            50% { 
+                transform: scale(1.08);
+                box-shadow: 
+                    0 0 40px rgba(255, 107, 53, 0.8),
+                    0 0 80px rgba(255, 205, 60, 0.6),
+                    0 0 120px rgba(255, 140, 0, 0.3),
+                    inset 0 0 40px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        @keyframes borderRotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(-360deg); }
         }
 
-        @keyframes innerGlow {
-            0% { opacity: 0.3; transform: scale(1); }
-            100% { opacity: 0.7; transform: scale(1.1); }
+        @keyframes innerShine {
+            0% { 
+                opacity: 0.3;
+                transform: scale(1) rotate(0deg);
+            }
+            100% { 
+                opacity: 0.8;
+                transform: scale(1.2) rotate(180deg);
+            }
         }
 
-        @keyframes iconFloat {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(-5px) scale(1.05); }
+        @keyframes iconBounce {
+            0%, 100% { 
+                transform: translateY(0px) scale(1) rotate(0deg);
+                text-shadow: 
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 107, 53, 0.6);
+            }
+            25% { 
+                transform: translateY(-3px) scale(1.1) rotate(5deg);
+                text-shadow: 
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 205, 60, 0.8);
+            }
+            50% { 
+                transform: translateY(-5px) scale(1.15) rotate(0deg);
+                text-shadow: 
+                    0 0 20px rgba(255, 255, 255, 1.2),
+                    0 0 40px rgba(255, 140, 0, 0.9);
+            }
+            75% { 
+                transform: translateY(-3px) scale(1.1) rotate(-5deg);
+                text-shadow: 
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 107, 53, 0.8);
+            }
         }
 
-        .logo-details {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
+        .logo-container {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 107, 53, 0.05) 25%,
+                rgba(255, 205, 60, 0.05) 50%,
+                rgba(255, 140, 0, 0.05) 75%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            backdrop-filter: blur(30px);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 0 auto 30px;
+            max-width: 500px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 107, 53, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: containerFloat 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 70%,
+                rgba(255, 107, 53, 0.1) 80%,
+                rgba(255, 205, 60, 0.1) 90%,
+                transparent 100%
+            );
+            animation: containerGlow 8s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes containerFloat {
+            0%, 100% { 
+                transform: translateY(0px);
+                box-shadow: 
+                    0 20px 60px rgba(0, 0, 0, 0.3),
+                    0 0 0 1px rgba(255, 107, 53, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+            33% { 
+                transform: translateY(-8px);
+                box-shadow: 
+                    0 25px 70px rgba(0, 0, 0, 0.4),
+                    0 0 0 1px rgba(255, 205, 60, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            66% { 
+                transform: translateY(4px);
+                box-shadow: 
+                    0 15px 50px rgba(0, 0, 0, 0.25),
+                    0 0 0 1px rgba(255, 140, 0, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            }
+        }
+
+        @keyframes containerGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .logo h1 {
             color: #ffffff;
-            font-size: 4.2rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #ffffff, #ffcd3c, #ff6b35);
+            background: linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #ffcd3c 25%,
+                #ff6b35 50%,
+                #ffd700 75%,
+                #ffffff 100%
+            );
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            letter-spacing: -2px;
+            letter-spacing: -1px;
             margin: 0;
+            animation: textShimmer 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .logo h1::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.5) 50%,
+                transparent 70%
+            );
+            animation: textGloss 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+            }
+            50% { 
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes textGloss {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            20% { transform: translateX(-100%) skewX(-15deg); }
+            80% { transform: translateX(100%) skewX(-15deg); }
+            100% { transform: translateX(100%) skewX(-15deg); }
         }
 
         .logo-tagline {
             color: #ffcd3c;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             opacity: 0.9;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            animation: taglineGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px rgba(255, 205, 60, 0.5);
+        }
+
+        @keyframes taglineGlow {
+            0% { 
+                text-shadow: 0 0 10px rgba(255, 205, 60, 0.5);
+                transform: scale(1);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 20px rgba(255, 205, 60, 0.8),
+                    0 0 30px rgba(255, 107, 53, 0.4);
+                transform: scale(1.02);
+            }
         }
 
         .logo-subtitle {
             color: #b8c6db;
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 400;
             opacity: 0.9;
+            animation: subtitleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes subtitleFloat {
+            0%, 100% { 
+                transform: translateY(0px);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateY(-2px);
+                opacity: 1;
+            }
         }
 
         .hero-badges {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
             margin-top: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .badge {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 15px 25px;
-            border-radius: 50px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 107, 53, 0.1) 50%,
+                rgba(255, 205, 60, 0.1) 100%
+            );
+            backdrop-filter: blur(15px);
+            padding: 15px 20px;
+            border-radius: 20px;
             color: #ffffff;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: badgeFloat 3s ease-in-out infinite;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .badge:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 107, 53, 0.2) 50%,
+                rgba(255, 205, 60, 0.2) 100%
+            );
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 30px rgba(255, 107, 53, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 107, 53, 0.4);
+        }
+
+        .badge:hover::before {
+            left: 100%;
+        }
+
+        .badge:active {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .badge:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .badge:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .badge:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .badge:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { 
+                transform: translateY(0px);
+            }
+            50% { 
+                transform: translateY(-3px);
+            }
         }
 
         .badge i {
             margin-left: 8px;
             color: #ffcd3c;
+            font-size: 1rem;
+            animation: iconSparkle 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 205, 60, 0.5);
+        }
+
+        @keyframes iconSparkle {
+            0%, 100% { 
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(255, 205, 60, 0.5);
+            }
+            50% { 
+                transform: scale(1.2);
+                text-shadow: 
+                    0 0 15px rgba(255, 205, 60, 0.8),
+                    0 0 25px rgba(255, 107, 53, 0.4);
+            }
         }
 
         /* Services Section */
@@ -1020,23 +1342,56 @@
             }
 
             .nav-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
+                padding: 8px 15px;
+                font-size: 0.85rem;
+                gap: 5px;
             }
 
-            .logo h1 {
-                font-size: 2.8rem;
-                text-align: center;
+            .header {
+                padding: 80px 0 30px;
+                min-height: 50vh;
+            }
+
+            .logo-container {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .logo {
+                flex-direction: column;
+                gap: 15px;
             }
 
             .logo-icon {
-                width: 80px;
-                height: 80px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .logo h1 {
                 font-size: 2.2rem;
+                text-align: center;
             }
 
             .logo-tagline {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                text-align: center;
+            }
+
+            .logo-subtitle {
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .hero-badges {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-top: 20px;
+            }
+
+            .badge {
+                padding: 12px 15px;
+                font-size: 0.85rem;
             }
 
             .form-row {
@@ -1044,7 +1399,7 @@
             }
 
             .form-container {
-                padding: 40px 30px;
+                padding: 30px 20px;
             }
 
             .contact-grid {
@@ -1053,7 +1408,7 @@
             }
 
             .services-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
                 gap: 20px;
             }
 
@@ -1065,17 +1420,13 @@
                 font-size: 1.2rem;
             }
 
-            .hero-badges {
-                flex-direction: column;
-                align-items: center;
-            }
-
             .modal-content {
-                padding: 30px 20px;
+                padding: 25px 15px;
+                margin: 20px;
             }
 
             .phone-number {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
 
             .floating-social {
@@ -1084,13 +1435,20 @@
             }
 
             .floating-social-link {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
             }
 
             .floating-social-link:hover {
                 transform: translateX(-8px) scale(1.1);
+            }
+
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                left: 20px;
             }
         }
     </style>
@@ -1116,43 +1474,37 @@
     <div class="container">
         <!-- Header Section -->
         <header class="header">
-            <div class="logo-container">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-tools"></i>
-                    
-                <div style="text-align: center; margin-top: 30px; padding: 25px; background: rgba(255,107,53,0.1); border-radius: 15px; border: 1px solid rgba(255,107,53,0.3);">
-                    <h4 style="color: #ffcd3c; margin-bottom: 15px; font-size: 1.3rem;">📷 להחלפת התמונות:</h4>
-                    <p style="color: #b8c6db; line-height: 1.6; margin-bottom: 0;">
-                        שמור את התמונות שלך בתיקייה עם האתר ושנה את הקוד:<br>
-                        <code style="background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 5px; color: #ffcd3c;">background: url('תמונה1.jpg')</code><br>
-                        במקום הגרדיאנטים הצבעוניים
-                    </p>
-                </div>
-                    <div class="logo-details">
-                        <div class="logo-tagline">PREMIUM QUALITY</div>
-                        <h1>שיפוצי פרימיום</h1>
-                        <p class="logo-subtitle">המומחים לשיפוצים ברמה הגבוהה ביותר</p>
+            <div class="hero-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="logo-details">
+                            <div class="logo-tagline">PREMIUM QUALITY</div>
+                            <h1>שיפוצי פרימיום</h1>
+                            <p class="logo-subtitle">המומחים לשיפוצים ברמה הגבוהה ביותר</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="hero-badges">
-                <div class="badge" onclick="openQualityModal()">
-                    <i class="fas fa-award"></i>
-                    איכות מובטחת
-                </div>
-                <div class="badge" onclick="openPriceModal()">
-                    <i class="fas fa-clock"></i>
-                    הצעת מחיר תוך 24 שעות
-                </div>
-                <div class="badge" onclick="openInsuranceModal()">
-                    <i class="fas fa-shield-alt"></i>
-                    ביטוח מלא
-                </div>
-                <div class="badge" onclick="scrollToTestimonials()">
-                    <i class="fas fa-star"></i>
-                    +500 לקוחות מרוצים
+                
+                <div class="hero-badges">
+                    <div class="badge" onclick="openQualityModal()">
+                        <i class="fas fa-award"></i>
+                        איכות מובטחת
+                    </div>
+                    <div class="badge" onclick="openPriceModal()">
+                        <i class="fas fa-clock"></i>
+                        הצעת מחיר תוך 24 שעות
+                    </div>
+                    <div class="badge" onclick="openInsuranceModal()">
+                        <i class="fas fa-shield-alt"></i>
+                        ביטוח מלא
+                    </div>
+                    <div class="badge" onclick="scrollToTestimonials()">
+                        <i class="fas fa-star"></i>
+                        +500 לקוחות מרוצים
+                    </div>
                 </div>
             </div>
         </header>
